@@ -1,0 +1,31 @@
+
+.dc-won-container {
+  flex-direction: column;
+  max-height: fit-content;
+}
+
+.dc-won-citation-container {
+  color: #008000;
+  border: 1px dotted lightgray;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: 32px;
+}
+
+.dc-won-title {
+  color: white;
+  font-style: italic;
+  text-align: center;
+  margin: 25px 0 25px 0;
+  font-size: 24px;
+}
+
+.dc-won-citation {
+  font-style: italic;
+  text-align: left;
+}
+
+.dc-won-author {
+  color: darkgreen;
+  text-align: right; font-weight: bold
+}

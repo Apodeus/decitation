@@ -1,0 +1,20 @@
+.navbar {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.navbar-links a{
+  color: lightgreen;
+  font-weight: lighter;
+}
+
+.navbar-links {
+  font-size: 24px;
+}

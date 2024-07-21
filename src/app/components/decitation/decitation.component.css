@@ -1,0 +1,58 @@
+
+
+.dc-citation-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dc-not-letter {
+  color:white;
+}
+
+.dc-word {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  margin-top: 12px;
+}
+
+.dc-letter-column {
+  margin-right: 2px;
+}
+
+.dc-letter {
+  text-align: center;
+  width: 50px;
+  font-size: 48px;
+}
+
+.dc-letter-decrypted {
+  border: 1px dotted gray;
+  color: white;
+}
+
+.dc-empty-letter {
+  height: 55px;
+}
+
+.dc-letter-decrypted:hover {
+  background-color: lightgreen;
+}
+
+.dc-same-letter {
+  background-color: rgba(144, 238, 144, 0.16);
+}
+
+.dc-active-letter {
+  background-color: #43d357;
+}
+
+.dc-letter-crypted {
+  color: gray;
+  font-weight: lighter;
+}
