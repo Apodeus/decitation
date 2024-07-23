@@ -36,7 +36,7 @@ const CITATION_6 = new CitationBuilder()
   .withAuteur('Victor Hugo')
   .build();
 
-export const CITATION_7 = new CitationBuilder()
+const CITATION_7 = new CitationBuilder()
   .withCitation('La vie est un mystère qu\'il faut vivre, et non un problème à résoudre.')
   .withAuteur('Gandhi')
   .build();
