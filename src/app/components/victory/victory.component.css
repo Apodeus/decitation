@@ -6,9 +6,9 @@
 
 .dc-won-citation-container {
   color: #008000;
-  border: 1px dotted lightgray;
-  padding-left: 40px;
-  padding-right: 40px;
+  border: 1px dashed lightgray;
+  padding-left: 60px;
+  padding-right: 60px;
   font-size: 32px;
 }
 
@@ -21,11 +21,11 @@
 }
 
 .dc-won-citation {
-  font-style: italic;
   text-align: left;
+  color: white;
 }
 
 .dc-won-author {
-  color: darkgreen;
+  color: rgba(101, 255, 101, 0.35);
   text-align: right; font-weight: bold
 }

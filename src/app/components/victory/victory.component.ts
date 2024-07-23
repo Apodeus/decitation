@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import {Component, input, Input} from '@angular/core';
+import { Citation } from '../../models/citation.model';
 
 @Component({
   selector: 'app-victory',
@@ -8,7 +9,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './victory.component.css'
 })
 export class VictoryComponent {
-  @Input() citation: string = '';
-  @Input() author: string = '';
-
+  citation = input.required<Citation>();
 }

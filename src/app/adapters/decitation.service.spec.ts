@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DecitationService } from './decitation.service';
+import { InMemoryDecitationService } from './in-memory-decitation.service';
 
 describe('DecitationService', () => {
-  let service: DecitationService;
+  let service: InMemoryDecitationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DecitationService);
+    service = TestBed.inject(InMemoryDecitationService);
   });
 
   it('should be created', () => {

@@ -1,5 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
+import dayjs from "dayjs";
 
 @Component({
   selector: 'app-navbar',
@@ -13,4 +14,5 @@ export class NavbarComponent {
   imgAlt :string = 'Decitation Img';
 
 
+  protected readonly dayjs = dayjs;
 }

@@ -1,0 +1,21 @@
+* {
+  color: gray;
+  font-size: 24px;
+}
+
+.dc-day-selector-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 15px 0 15px 0;
+}
+
+.dc-date {
+  min-width: 320px;
+}
+
+.dc-day-buttons {
+  cursor: pointer;
+  text-decoration-line: underline;
+  min-width: 44px;
+}

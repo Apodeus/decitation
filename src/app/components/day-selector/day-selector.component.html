@@ -1,0 +1,22 @@
+<div class="dc-day-selector-container">
+  @if (service.hasCitationForDate(dayjs(currDate()).subtract(1, 'day').toDate())) {
+    <div (click)="onPreviousClick()" class="dc-day-buttons">
+      ← {{ currCitation()[0] - 1 }}
+    </div>
+  } @else {
+  <div class="dc-day-buttons">
+  </div>
+  }
+  <div class="dc-date">
+    #{{ currCitation()[0] }} - {{ activatedRoute.snapshot.params['date'] | date:'fullDate':'' : 'fr-FR' }}
+  </div>
+  @if (service.hasCitationForDate(dayjs(currDate()).add(1, 'day').toDate())) {
+    <div (click)="onNextClick()" class="dc-day-buttons">
+      {{ currCitation()[0] + 1 }} →
+    </div>
+  } @else {
+  <div class="dc-day-buttons">
+  </div>
+  }
+</div>
+

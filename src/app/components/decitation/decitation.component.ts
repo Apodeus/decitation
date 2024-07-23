@@ -1,11 +1,15 @@
-import {Component, inject} from '@angular/core';
-import { DecitationService } from '../../services/decitation.service';
+import {Component, computed, effect, inject, Input, input, signal} from '@angular/core';
 import {VictoryComponent} from "../victory/victory.component";
+import {DaySelectorComponent} from "../day-selector/day-selector.component";
+import {DecitationGateway} from "../../ports/decitation.gateway";
+import dayjs from 'dayjs';
+import {FIRST_DATE} from "../../citations.stub";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-decitation',
   standalone: true,
-  imports: [VictoryComponent],
+  imports: [VictoryComponent, DaySelectorComponent],
   templateUrl: './decitation.component.html',
   styleUrl: './decitation.component.css',
   host: {
@@ -16,14 +20,36 @@ import {VictoryComponent} from "../victory/victory.component";
   }
 })
 export class DecitationComponent {
-  decipherService = inject(DecitationService);
 
-  alphabet : string[] = this.decipherService.alphabet.split('');
-  cryptedCitationWords: string[] = this.decipherService.getCryptedCitation().split(' ');
+  decipherService = inject(DecitationGateway);
+  router = inject(Router);
+
+  date = input(new Date(), {
+    transform:  (date : string) => dayjs(date).startOf('day').toDate()
+  });
+
+  alphabet : string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  correspondanceMap  = new Map<string, string>();
+  hasWon = false;
   currWordIdx : number = 0;
   currLetterIdx : number = 0;
-  correspondanceMap : Map<string, string> = new Map<string, string>();
-  hasWon : boolean = false;
+  cryptedCitationWords = computed(() => {
+    if(!this.decipherService.hasCitationForDate(this.date())) {
+      console.log('No data for this date');
+      this.router.navigate([`/`, dayjs(FIRST_DATE).format('YYYY-MM-DD')]);
+    }
+    return this.decipherService.getCryptedCitation(this.date()).split(' ');
+  });
+
+  constructor() {
+    effect(() => {
+      this.cryptedCitationWords();
+      this.currWordIdx = 0;
+      this.currLetterIdx = 0;
+      this.hasWon = false;
+      this.correspondanceMap.clear();
+    });
+  }
 
   onClick(event: Event, idxWord: number, idxLetter : number) {
     this.currWordIdx = idxWord;
@@ -31,23 +57,22 @@ export class DecitationComponent {
   }
 
   deleteLetter() {
-    this.correspondanceMap.delete(this.cryptedCitationWords[this.currWordIdx][this.currLetterIdx]);
+    this.correspondanceMap.delete(this.cryptedCitationWords()[this.currWordIdx][this.currLetterIdx]);
     this.updateToPreviousIdx();
   }
 
   handleInput(event: KeyboardEvent) {
     const letter = event.key.toUpperCase();
-    console.log('letter ', letter);
 
     if(!this.alphabet.includes(letter)) {
       return;
     }
 
-    const currSelection : string = this.cryptedCitationWords[this.currWordIdx][this.currLetterIdx];
+    const currSelection : string = this.cryptedCitationWords()[this.currWordIdx][this.currLetterIdx];
     this.correspondanceMap.set(currSelection, letter);
 
     //verifier si on a gagné
-    if(this.decipherService.verify(this.correspondanceMap)) {
+    if(this.decipherService.verify(this.correspondanceMap, this.date())) {
       console.log('You won!');
       this.hasWon = true;
       return;
@@ -60,9 +85,9 @@ export class DecitationComponent {
   private updateToNextIdx() {
     let nextIdxW = this.currWordIdx;
     let nextIdxL = this.currLetterIdx + 1;
-    while (nextIdxW < this.cryptedCitationWords.length) {
-      while (nextIdxL < this.cryptedCitationWords[nextIdxW].length) {
-        if (this.alphabet.includes(this.cryptedCitationWords[nextIdxW][nextIdxL])) {
+    while (nextIdxW < this.cryptedCitationWords().length) {
+      while (nextIdxL < this.cryptedCitationWords()[nextIdxW].length) {
+        if (this.alphabet.includes(this.cryptedCitationWords()[nextIdxW][nextIdxL])) {
           this.currWordIdx = nextIdxW;
           this.currLetterIdx = nextIdxL;
           return;
@@ -72,7 +97,7 @@ export class DecitationComponent {
       nextIdxW++;
       nextIdxL = 0;
     }
-    if(nextIdxW >= this.cryptedCitationWords.length) {
+    if(nextIdxW >= this.cryptedCitationWords().length) {
       this.currWordIdx = 0;
       this.currLetterIdx = 0;
     }
@@ -83,7 +108,7 @@ export class DecitationComponent {
     let prvsIdxL :number = this.currLetterIdx - 1;
     while (prvsIdxW >= 0) {
       while (prvsIdxL >= 0) {
-        if (this.alphabet.includes(this.cryptedCitationWords[prvsIdxW][prvsIdxL])) {
+        if (this.alphabet.includes(this.cryptedCitationWords()[prvsIdxW][prvsIdxL])) {
           this.currWordIdx = prvsIdxW;
           this.currLetterIdx = prvsIdxL;
           return;
@@ -92,13 +117,13 @@ export class DecitationComponent {
       }
       prvsIdxW--;
       if(prvsIdxW >= 0) {
-        prvsIdxL = this.cryptedCitationWords[prvsIdxW].length - 1;
+        prvsIdxL = this.cryptedCitationWords()[prvsIdxW].length - 1;
       }
     }
     if(prvsIdxW < 0) {
-      this.currWordIdx = this.cryptedCitationWords.length - 1;
-      prvsIdxL = this.cryptedCitationWords[this.currWordIdx].length - 1;
-      while (prvsIdxL >= 0 && !this.alphabet.includes(this.cryptedCitationWords[this.currWordIdx][prvsIdxL])) {
+      this.currWordIdx = this.cryptedCitationWords().length - 1;
+      prvsIdxL = this.cryptedCitationWords()[this.currWordIdx].length - 1;
+      while (prvsIdxL >= 0 && !this.alphabet.includes(this.cryptedCitationWords()[this.currWordIdx][prvsIdxL])) {
         prvsIdxL--;
       }
       this.currLetterIdx = prvsIdxL;

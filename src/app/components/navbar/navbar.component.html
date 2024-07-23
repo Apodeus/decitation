@@ -1,15 +1,15 @@
 <nav class="navbar">
 
   <div class="navbar-logo">
-    <a href="/">
+    <a href="{{dayjs().format('YYYY-MM-DD')}}">
       <img [ngSrc]="imgUrl" [alt]="imgAlt" width="216" height="54" priority/>
     </a>
   </div>
   <div class="navbar-links">
-    <a href="/">Home</a>
+    <a href="{{dayjs().format('YYYY-MM-DD')}}">home</a>
     |
-    <a href="/archives">Archives</a>
+    <a href="/archives">archives</a>
     |
-    <a href="/archives">About</a>
+    <a href="/archives">about</a>
   </div>
 </nav>

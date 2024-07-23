@@ -5,7 +5,7 @@ import {AdminComponent} from "./components/admin/admin.component";
 
 export const routes: Routes = [
   {
-    path: '',
+    path: ':date',
     title: 'Home',
     component: DecitationComponent
   },

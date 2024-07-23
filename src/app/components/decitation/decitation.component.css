@@ -1,4 +1,7 @@
 
+.dc-victory {
+  min-width: 85%;
+}
 
 .dc-citation-container {
   display: flex;
@@ -22,13 +25,14 @@
 }
 
 .dc-letter-column {
-  margin-right: 2px;
+  margin-right: 6px;
 }
 
 .dc-letter {
   text-align: center;
-  width: 50px;
+  width: 40px;
   font-size: 48px;
+  height: 55px;
 }
 
 .dc-letter-decrypted {
@@ -50,6 +54,14 @@
 
 .dc-active-letter {
   background-color: #43d357;
+}
+
+.dc-active-crypted-letter {
+  color: #7ffd7f !important;
+}
+
+.dc-same-active-crypted-letter {
+  color: rgba(127, 253, 127, 0.35) !important;
 }
 
 .dc-letter-crypted {
