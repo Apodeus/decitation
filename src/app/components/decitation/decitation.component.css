@@ -1,6 +1,12 @@
 
 .dc-victory {
-  min-width: 85%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 60%;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .dc-citation-container {
@@ -67,4 +73,10 @@
 .dc-letter-crypted {
   color: gray;
   font-weight: lighter;
+}
+
+.dc-citation-main-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
 }

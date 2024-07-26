@@ -1,34 +1,36 @@
-<app-day-selector></app-day-selector>
-
-<div class="dc-citation-container">
-  @if (hasWon) {
-    <app-victory class="dc-victory" [citation]="this.decipherService.getCitationByDate(date())[1]"></app-victory>
-  } @else {
-    @for (word of cryptedCitationWords(); track $index; let idxW = $index) {
-      <div class="dc-word">
-        @for (letter of word; track $index; let idxL = $index) {
-          <div class="dc-letter-column">
-            @if (alphabet.includes(cryptedCitationWords()[idxW][idxL])) {
-              <div class="dc-letter-decrypted dc-letter"
-                   [class.dc-active-letter]="currWordIdx === idxW && currLetterIdx === idxL"
-                   [class.dc-empty-letter]="!correspondanceMap.has(cryptedCitationWords()[idxW][idxL])"
-                   [class.dc-same-letter]="cryptedCitationWords()[currWordIdx][currLetterIdx] === cryptedCitationWords()[idxW][idxL] && !(currWordIdx === idxW && currLetterIdx === idxL)"
-                   (click)="onClick($event, idxW, idxL)">
-                {{ correspondanceMap.get(cryptedCitationWords()[idxW][idxL]) }}
+<div class="dc-citation-main-container">
+  <app-day-selector></app-day-selector>
+    @if (hasWon) {
+      <app-victory class="dc-victory" [citation]="this.decipherService.getCitationByDate(date())"
+                   [time]="this.chrono.chronoSignal()"></app-victory>
+    } @else {
+      <div class="dc-citation-container">
+      @for (word of cryptedCitationWords(); track $index; let idxW = $index) {
+        <div class="dc-word">
+          @for (letter of word; track $index; let idxL = $index) {
+            <div class="dc-letter-column">
+              @if (alphabet.includes(cryptedCitationWords()[idxW][idxL])) {
+                <div class="dc-letter-decrypted dc-letter"
+                     [class.dc-active-letter]="currWordIdx === idxW && currLetterIdx === idxL"
+                     [class.dc-empty-letter]="!correspondanceMap.has(cryptedCitationWords()[idxW][idxL])"
+                     [class.dc-same-letter]="cryptedCitationWords()[currWordIdx][currLetterIdx] === cryptedCitationWords()[idxW][idxL] && !(currWordIdx === idxW && currLetterIdx === idxL)"
+                     (click)="onClick($event, idxW, idxL)">
+                  {{ correspondanceMap.get(cryptedCitationWords()[idxW][idxL]) }}
+                </div>
+              } @else {
+                <div class="dc-not-letter dc-letter">{{ cryptedCitationWords()[idxW][idxL] }}</div>
+              }
+              <div class="dc-letter-crypted dc-letter dc-active-crypted-letter"
+                   [class.dc-active-crypted-letter]="currWordIdx === idxW && currLetterIdx === idxL"
+                   [class.dc-same-active-crypted-letter]="cryptedCitationWords()[currWordIdx][currLetterIdx] === cryptedCitationWords()[idxW][idxL] && !(currWordIdx === idxW && currLetterIdx === idxL)">
+                {{ cryptedCitationWords()[idxW][idxL] }}
               </div>
-            } @else {
-              <div class="dc-not-letter dc-letter">{{ cryptedCitationWords()[idxW][idxL] }}</div>
-            }
-            <div class="dc-letter-crypted dc-letter dc-active-crypted-letter"
-                 [class.dc-active-crypted-letter]="currWordIdx === idxW && currLetterIdx === idxL"
-                 [class.dc-same-active-crypted-letter]="cryptedCitationWords()[currWordIdx][currLetterIdx] === cryptedCitationWords()[idxW][idxL] && !(currWordIdx === idxW && currLetterIdx === idxL)">
-              {{ cryptedCitationWords()[idxW][idxL] }}
             </div>
-          </div>
-        }
-        <div class="dc-letter"></div>
-      </div>
+          }
+          <div class="dc-letter"></div>
+        </div>
+      }
+    </div>
     }
-  }
+  <app-chrono #chrono></app-chrono>
 </div>
-

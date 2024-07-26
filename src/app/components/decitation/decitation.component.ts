@@ -1,15 +1,17 @@
-import {Component, computed, effect, inject, Input, input, signal} from '@angular/core';
+import {Component, computed, effect, inject, input, ViewChild} from '@angular/core';
 import {VictoryComponent} from "../victory/victory.component";
 import {DaySelectorComponent} from "../day-selector/day-selector.component";
 import {DecitationGateway} from "../../ports/decitation.gateway";
 import dayjs from 'dayjs';
 import {FIRST_DATE} from "../../citations.stub";
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
+import {ChronoComponent} from "../chrono/chrono.component";
+import {AsyncPipe} from "@angular/common";
 
 @Component({
   selector: 'app-decitation',
   standalone: true,
-  imports: [VictoryComponent, DaySelectorComponent],
+  imports: [VictoryComponent, DaySelectorComponent, ChronoComponent, AsyncPipe],
   templateUrl: './decitation.component.html',
   styleUrl: './decitation.component.css',
   host: {
@@ -27,6 +29,8 @@ export class DecitationComponent {
   date = input(new Date(), {
     transform:  (date : string) => dayjs(date).startOf('day').toDate()
   });
+
+  @ViewChild('chrono') chrono : ChronoComponent;
 
   alphabet : string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   correspondanceMap  = new Map<string, string>();
@@ -46,8 +50,10 @@ export class DecitationComponent {
       this.cryptedCitationWords();
       this.currWordIdx = 0;
       this.currLetterIdx = 0;
-      this.hasWon = false;
+      this.hasWon = true;
       this.correspondanceMap.clear();
+      this.chrono.restart();
+      this.chrono.start();
     });
   }
 
@@ -75,6 +81,7 @@ export class DecitationComponent {
     if(this.decipherService.verify(this.correspondanceMap, this.date())) {
       console.log('You won!');
       this.hasWon = true;
+      this.chrono.stop();
       return;
     }
 

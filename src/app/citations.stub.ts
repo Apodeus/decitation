@@ -41,5 +41,25 @@ const CITATION_7 = new CitationBuilder()
   .withAuteur('Gandhi')
   .build();
 
-export const FIRST_DATE = dayjs().subtract(5, "days").startOf("day").toDate();
-export const CITATIONS = [CITATION_0, CITATION_1, CITATION_2, CITATION_3, CITATION_4, CITATION_5, CITATION_6, CITATION_7];
+const CITATION_8 = new CitationBuilder()
+  .withCitation('Le courage n\'est pas l\'absence de peur, mais la capacité de la vaincre.')
+  .withAuteur('Nelson Mandela')
+  .build();
+
+const CITATION_9 = new CitationBuilder()
+  .withCitation('La beauté est dans les yeux de celui qui regarde.')
+  .withAuteur('Oscar Wilde')
+  .build();
+
+const CITATION_10 = new CitationBuilder()
+  .withCitation('Le bonheur n\'est pas une destination, mais une façon de voyager.')
+  .withAuteur('Margaret Lee Runbeck')
+  .build();
+
+const CITATION_11 = new CitationBuilder()
+  .withCitation('Celui qui ne connaît pas l\'histoire est condamné à la revivre.')
+  .withAuteur('Karl Marx')
+  .build();
+
+export const FIRST_DATE = dayjs('2024-07-18').startOf("day").toDate();
+export const CITATIONS = [CITATION_0, CITATION_1, CITATION_2, CITATION_3, CITATION_4, CITATION_5, CITATION_6, CITATION_7, CITATION_8, CITATION_9, CITATION_10];

@@ -1,0 +1,3 @@
+<!--<div class="dc-chrono">{{ (chrono$ | async)?.heure  | number: '2.' }}:{{ (chrono$ | async)?.minute  | number: '2.' }}:{{ (chrono$ | async)?.seconde  | number: '2.' }}</div>-->
+<div class="dc-chrono">{{ chronoSignal().heure | number: '2.' }}:{{ chronoSignal().minute  | number: '2.' }}:{{ chronoSignal().seconde | number: '2.' }}</div>
+<!--<div class="dc-chrono">{{ chrono()?.heure | number: '2.' }}:{{ chrono()?.minute | number: '2.' }}:{{ chrono()?.seconde | number:'2.' }}</div>-->

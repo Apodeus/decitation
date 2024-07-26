@@ -3,7 +3,11 @@
     TU AS DÉCHIFFRÉ LA CITATION !
   </div>
   <div class="dc-won-citation-container">
-    <p class="dc-won-citation">{{ citation().citation }}</p>
-    <p class="dc-won-author">- {{ citation().auteur }}</p>
+    <p class="dc-won-citation">{{ citation()[1].citation }}</p>
+    <p class="dc-won-author">- {{ citation()[1].auteur }}</p>
+  </div>
+  <div class="dc-won-share-container">
+    <button class="dc-won-share-button" (click)="copyToClipboard()">Partager</button>
   </div>
 </div>
+
