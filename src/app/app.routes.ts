@@ -1,22 +1,24 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {DecitationComponent} from "./components/decitation/decitation.component";
 import {ArchiveComponent} from "./components/archive/archive.component";
-import {AdminComponent} from "./components/admin/admin.component";
+import {AboutComponent} from "./components/about/about.component";
 
 export const routes: Routes = [
   {
-    path: ':date',
+    path: 'game/:date',
     title: 'Home',
+    pathMatch: "full",
     component: DecitationComponent
   },
   {
     path: 'archives',
+    pathMatch: "full",
     title: 'Archives',
     component: ArchiveComponent
   },
   {
-    path: 'admin',
-    title: 'Administration',
-    component: AdminComponent
+    path: 'about',
+    title: 'About',
+    component: AboutComponent
   }
 ];

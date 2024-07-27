@@ -1,0 +1,28 @@
+* {
+  color: white;
+}
+
+.dc-about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 61%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+}
+
+.dc-about-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.dc-about-title {
+  font-size: 32px;
+  font-weight: bolder;
+}
+
+.dc-about-content {
+  font-size: 20px;
+  font-weight: lighter;
+}

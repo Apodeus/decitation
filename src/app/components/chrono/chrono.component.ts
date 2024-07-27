@@ -29,7 +29,6 @@ export class ChronoComponent {
   isStopped = true;
 
   constructor() {
-    this.initTimerSubscription();
   }
 
 
@@ -57,7 +56,8 @@ export class ChronoComponent {
 
   restart() {
     this.stop();
-    this.timer$.next(0);
+    this.start();
+    //this.timer$.next(0);
   }
 
   createChrono(): Observable<Chrono> {

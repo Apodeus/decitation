@@ -1,4 +1,4 @@
-import {Component, computed, effect, inject, input, ViewChild} from '@angular/core';
+import {Component, computed, effect, inject, ViewChild} from '@angular/core';
 import {VictoryComponent} from "../victory/victory.component";
 import {DaySelectorComponent} from "../day-selector/day-selector.component";
 import {DecitationGateway} from "../../ports/decitation.gateway";
@@ -7,6 +7,8 @@ import {FIRST_DATE} from "../../citations.stub";
 import {Router} from '@angular/router';
 import {ChronoComponent} from "../chrono/chrono.component";
 import {AsyncPipe} from "@angular/common";
+import {injectParams} from "ngxtension/inject-params";
+import {SaveStoreService} from "../../adapters/save-store.service";
 
 @Component({
   selector: 'app-decitation',
@@ -24,11 +26,12 @@ import {AsyncPipe} from "@angular/common";
 export class DecitationComponent {
 
   decipherService = inject(DecitationGateway);
+  saveStore = inject(SaveStoreService);
   router = inject(Router);
 
-  date = input(new Date(), {
-    transform:  (date : string) => dayjs(date).startOf('day').toDate()
-  });
+  date = injectParams(params => {
+    return dayjs(params['date']).startOf('day').toDate();
+  })
 
   @ViewChild('chrono') chrono : ChronoComponent;
 
@@ -50,10 +53,9 @@ export class DecitationComponent {
       this.cryptedCitationWords();
       this.currWordIdx = 0;
       this.currLetterIdx = 0;
-      this.hasWon = true;
+      this.hasWon = false;
       this.correspondanceMap.clear();
       this.chrono.restart();
-      this.chrono.start();
     });
   }
 
@@ -82,6 +84,7 @@ export class DecitationComponent {
       console.log('You won!');
       this.hasWon = true;
       this.chrono.stop();
+      this.saveStore.save(this.decipherService.getCitationByDate(this.date())[0], this.chrono.chronoSignal())
       return;
     }
 

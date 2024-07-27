@@ -1,8 +1,8 @@
-import {Component, computed, inject, input, signal} from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {CommonModule, registerLocaleData} from "@angular/common";
 import localeFr from '@angular/common/locales/fr';
-import {ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import dayjs from "dayjs";
 import {DecitationGateway} from "../../ports/decitation.gateway";
 import {injectParams} from "ngxtension/inject-params";
@@ -34,11 +34,11 @@ export class DaySelectorComponent {
   }
 
   onNextClick() {
-    this.router.navigate([`/`, dayjs(this.activatedRoute.snapshot.params['date']).add(1, 'day').format('YYYY-MM-DD')]);
+    this.router.navigate([`/game/`, dayjs(this.activatedRoute.snapshot.params['date']).add(1, 'day').format('YYYY-MM-DD')]);
   }
 
   onPreviousClick() {
-    this.router.navigate([`/`, dayjs(this.activatedRoute.snapshot.params['date']).subtract(1, 'day').format('YYYY-MM-DD')]);
+    this.router.navigate([`/game/`, dayjs(this.activatedRoute.snapshot.params['date']).subtract(1, 'day').format('YYYY-MM-DD')]);
   }
 
   protected readonly localeFr = localeFr;

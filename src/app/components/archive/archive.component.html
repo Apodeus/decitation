@@ -1,1 +1,12 @@
-<p>archive work in progress!</p>
+<div class="dc-archives-container">
+  <div class="dc-archives-title">Archive</div>
+  <div class="dc-archives-list">
+    @for (item of this.citations; track item.numero) {
+      <div (click)="navigateTo(item)" class="dc-archives-item" [class.dc-archives-is-completed]="item.isCompleted">
+        <div class="dc-archives-item-number">{{item.numero}}</div>
+        <div class="dc-archives-item-date">{{item.date | date :'dd/MM/YYYY'}}</div>
+      </div>
+    }
+  </div>
+
+</div>
